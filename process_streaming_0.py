@@ -55,7 +55,7 @@ def prepare_message_from_row(row):
 
 
 def stream_row(input_file_name, address_tuple):
-    """Read from input file and stream data."""
+    """Read from input file, reverse rows to display oldest data first, and stream data."""
     logging.info(f"Starting to stream data from {input_file_name} to {address_tuple}.")
 
     # Create a file object for input (r = read access)
@@ -68,23 +68,24 @@ def stream_row(input_file_name, address_tuple):
         header = next(reader)  # Skip header row
         logging.info(f"Skipped header row: {header}")
 
+        # Collect all data rows
+        rows = list(reader)
+        # Reverse the list to process the oldest data first
+        rows.reverse()
+
         # use socket enumerated types to configure our socket object
         # Set our address family to (IPV4) for 'internet'
         # Set our socket type to UDP (datagram)
         ADDRESS_FAMILY = socket.AF_INET 
         SOCKET_TYPE = socket.SOCK_DGRAM 
 
-        # Call the socket constructor, socket.socket()
-        # A constructor is a special method with the same name as the class
-        # Use the constructor to make a socket object
-        # and assign it to a variable named `sock_object`
-        sock_object = socket.socket(ADDRESS_FAMILY, SOCKET_TYPE)
-        
-        for row in reader:
-            MESSAGE = prepare_message_from_row(row)
-            sock_object.sendto(MESSAGE, address_tuple)
-            logging.info(f"Sent: {MESSAGE} on port {PORT}. Hit CTRL-c to stop.")
-            time.sleep(3) # wait 3 seconds between messages
+        # Create a socket object
+        with socket.socket(ADDRESS_FAMILY, SOCKET_TYPE) as sock_object:
+            for row in rows:
+                MESSAGE = prepare_message_from_row(row)
+                sock_object.sendto(MESSAGE, address_tuple)
+                logging.info(f"Sent: {MESSAGE} on port {PORT}. Hit CTRL-c to stop.")
+                time.sleep(3)  # wait 3 seconds between messages
 
 # ---------------------------------------------------------------------------
 # If this is the script we are running, then call some functions and execute code!
