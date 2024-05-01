@@ -1,15 +1,9 @@
 # streaming-01-getting-started
 
-> Get started with Python for streaming analytics
-
-We assume no prior programming experience and that you want to 
-get productive as quickly as possible.
+> This project is to help get started with Python for streaming analytics by running several batch script examples to generate data files, followed by executing an example of a streaming script.  
 
 This project uses only content from the Python Standard Library. 
 No project virtual environment is required. 
-
-These are popular industry tools - we'll practice with them a lot. 
-Getting good at them helps you build better analytics projects more efficiently. 
 
 ## Prerequisites
 
@@ -44,7 +38,7 @@ Important:
 - Type each command rather than copy & paste for best results. 
 - Wait for each command to complete before running the next command.
 
-```shell
+```bash
 git --version
 git config user.name
 git config user.email
@@ -75,7 +69,7 @@ Important:
 - If Mac/Linux, change `python` to `python3` in the commands below.
 - In Windows, you might try `py` instead of `python`.
 
-```shell
+```bash
 python util_about.py
 ```
 
@@ -101,23 +95,22 @@ Read the comments in the file to learn how to stop the process.
 
 Important: 
 
-- If Mac/Linux, change `python` to `python3` in the commands below.
 - In Windows, you might try `py` instead of `python`.
 - Wait for each script to finish. Did you generate a new datafile? What is the name?
 
-```shell
+```bash
 python process_batch_A.py
 ```
 
-```shell
+```bash
 python process_batch_B.py
 ```
 
-```shell
+```bash
 python process_batch_C.py
 ```
 
-```shell
+```bash
 python process_streaming_0.py
 ```
 
@@ -165,7 +158,7 @@ They will first add all the files (add "dot").
 Then they will commit the changes with a message. 
 Finally, they will push the changes up to GitHub.
 
-```
+```bash
 git add .
 git commit -m "initial results"
 git push origin main
